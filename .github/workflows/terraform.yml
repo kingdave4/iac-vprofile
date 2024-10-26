@@ -63,10 +63,15 @@ jobs:
           run: exit 1
 
 
-        - name: Terraform apply
+        #- name: Terraform apply
+         # id: apply
+          #if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+          #run: terraform apply -auto-approve -input=false -parallelism=1 planfile
+
+        - name: Terraform destroy
           id: apply
           if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-          run: terraform apply -auto-approve -input=false -parallelism=1 planfile
+          run: terraform destroy -auto-approve -input=false -parallelism=1 planfile
 
         - name: Configure AWS credentials
           uses: aws-actions/configure-aws-credentials@v1
